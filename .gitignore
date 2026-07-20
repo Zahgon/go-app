@@ -19,3 +19,7 @@ test
 *.gz
 *.gcloudignore
 .vscode/*
+
+.aider*
+logs/
+vendor/
