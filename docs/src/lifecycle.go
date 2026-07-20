@@ -7,10 +7,6 @@ const (
 	updateApp  = "/app/update"
 )
 
-func handleAppInstall(ctx app.Context, a app.Action) {
-	ctx.ShowAppInstallPrompt()
-}
+func handleAppInstall(ctx app.Context, a app.Action) { _ = "STUB: not implemented"; return }
 
-func handleAppUpdate(ctx app.Context, a app.Action) {
-	ctx.Reload()
-}
+func handleAppUpdate(ctx app.Context, a app.Action) { _ = "STUB: not implemented"; return }

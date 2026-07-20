@@ -2,12 +2,8 @@ package main
 
 import (
 	"context"
-	"encoding/json"
-	"fmt"
-	"math/rand"
 	"net/http"
 	"os"
-	"path"
 	"sync"
 	"syscall"
 
@@ -15,8 +11,6 @@ import (
 	"github.com/maxence-charriere/go-app/v11/pkg/analytics"
 	"github.com/maxence-charriere/go-app/v11/pkg/app"
 	"github.com/maxence-charriere/go-app/v11/pkg/cli"
-	"github.com/maxence-charriere/go-app/v11/pkg/errors"
-	"github.com/maxence-charriere/go-app/v11/pkg/logs"
 	"github.com/maxence-charriere/go-app/v11/pkg/ui"
 )
 
@@ -126,7 +120,7 @@ func main() {
 		ThemeColor:      backgroundColor,
 		LoadingLabel:    "go-app documentation {progress}%",
 		Styles: []string{
-			// "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap",
+
 			"/web/css/prism.css",
 			"/web/css/docs.css",
 		},
@@ -155,48 +149,16 @@ func main() {
 }
 
 func runLocal(ctx context.Context, h *app.Handler, opts localOptions) {
-	app.Log(logs.New("starting go-app documentation service").
-		WithTag("port", opts.Port).
-		WithTag("version", h.Version),
-	)
-
-	h.Env = map[string]string{
-		"VAPID_PUBLIC_KEY": opts.VAPIDPublicKey,
-	}
-
-	http.Handle("/", h)
-	http.Handle("/test/notifications/", &notificationHandler{
-		VAPIDPrivateKey: opts.VAPIDPrivateKey,
-		VAPIDPublicKey:  opts.VAPIDPublicKey,
-	})
-
-	s := http.Server{
-		Addr: fmt.Sprintf(":%v", opts.Port),
-	}
-
-	go func() {
-		<-ctx.Done()
-		s.Shutdown(context.Background())
-	}()
-
-	if err := s.ListenAndServe(); err != nil {
-		panic(err)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func generateGitHubPages(ctx context.Context, h *app.Handler, opts githubOptions) {
-	if err := app.GenerateStaticWebsite(opts.Output, h); err != nil {
-		panic(err)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
-func exit() {
-	err := recover()
-	if err != nil {
-		app.Log("command failed:", errors.Newf("%v", err))
-		os.Exit(-1)
-	}
-}
+func exit() { _ = "STUB: not implemented"; return }
 
 type notificationHandler struct {
 	VAPIDPrivateKey string
@@ -207,70 +169,16 @@ type notificationHandler struct {
 }
 
 func (h *notificationHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	switch path := path.Base(r.URL.Path); path {
-	case "register":
-		h.handleRegistrations(w, r)
-
-	case "test":
-		h.handleTests(w, r)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
-// handleRegistrations receives and stores the previously created subscription.
 func (h *notificationHandler) handleRegistrations(w http.ResponseWriter, r *http.Request) {
-	var sub webpush.Subscription
-	if err := json.NewDecoder(r.Body).Decode(&sub); err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-
-	h.mutex.Lock()
-	defer h.mutex.Unlock()
-
-	if h.subscriptions == nil {
-		h.subscriptions = make(map[string]webpush.Subscription)
-	}
-	h.subscriptions[sub.Endpoint] = sub
+	_ = "STUB: not implemented"
+	return
 }
 
-// handleTests creates and sends a push notification for all the registered
-// subscriptions.
 func (h *notificationHandler) handleTests(w http.ResponseWriter, r *http.Request) {
-	h.mutex.Lock()
-	defer h.mutex.Unlock()
-
-	for _, sub := range h.subscriptions {
-		go func(sub webpush.Subscription) {
-			n := rand.Intn(42)
-			fmt.Println("sending push", n)
-
-			notif := app.Notification{
-				Title: fmt.Sprintf("Push test from server %v", n),
-				Body:  fmt.Sprintf("YEAH BABY PUSH ME %v", n),
-				Icon:  "/web/images/go-app.png",
-				Path:  "/notifications#sending-push-notification",
-				// Actions: []app.NotificationAction{
-				// 	{Action: "js", Title: "JS", Path: "/js"},
-				// 	{Action: "seo", Title: "SEO", Path: "/seo"},
-				// },
-			}
-
-			b, err := json.Marshal(notif)
-			if err != nil {
-				app.Log(err)
-				return
-			}
-
-			res, err := webpush.SendNotification(b, &sub, &webpush.Options{
-				VAPIDPrivateKey: h.VAPIDPrivateKey,
-				VAPIDPublicKey:  h.VAPIDPublicKey,
-				TTL:             30,
-			})
-			if err != nil {
-				app.Log(errors.New("sending push notification failed").Wrap(err))
-				return
-			}
-			defer res.Body.Close()
-		}(sub)
-	}
+	_ = "STUB: not implemented"
+	return
 }

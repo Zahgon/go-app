@@ -5,215 +5,137 @@ package app
 
 import (
 	"net/url"
-	"runtime"
-
-	"github.com/maxence-charriere/go-app/v11/pkg/errors"
 )
 
 type value struct{}
 
-func (v value) Bool() bool {
-	return false
-}
+func (v value) Bool() bool { _ = "STUB: not implemented"; return false }
 
-func (v value) Call(m string, args ...any) Value {
-	return value{}
-}
+func (v value) Call(m string, args ...any) Value { _ = "STUB: not implemented"; return *new(Value) }
 
-func (v value) Delete(p string) {
-}
+func (v value) Delete(p string) { _ = "STUB: not implemented"; return }
 
-func (v value) Equal(w Value) bool {
-	return v == w
-}
+func (v value) Equal(w Value) bool { _ = "STUB: not implemented"; return false }
 
-func (v value) Float() float64 {
-	return 0
-}
+func (v value) Float() float64 { _ = "STUB: not implemented"; return 0 }
 
-func (v value) Get(p string) Value {
-	return value{}
-}
+func (v value) Get(p string) Value { _ = "STUB: not implemented"; return *new(Value) }
 
-func (v value) Index(i int) Value {
-	return value{}
-}
+func (v value) Index(i int) Value { _ = "STUB: not implemented"; return *new(Value) }
 
-func (v value) InstanceOf(t Value) bool {
-	return false
-}
+func (v value) InstanceOf(t Value) bool { _ = "STUB: not implemented"; return false }
 
-func (v value) Int() int {
-	return 0
-}
+func (v value) Int() int { _ = "STUB: not implemented"; return 0 }
 
-func (v value) Invoke(args ...any) Value {
-	return value{}
-}
+func (v value) Invoke(args ...any) Value { _ = "STUB: not implemented"; return *new(Value) }
 
-func (v value) IsNaN() bool {
-	return false
-}
+func (v value) IsNaN() bool { _ = "STUB: not implemented"; return false }
 
-func (v value) IsNull() bool {
-	return true
-}
+func (v value) IsNull() bool { _ = "STUB: not implemented"; return false }
 
-func (v value) IsUndefined() bool {
-	return true
-}
+func (v value) IsUndefined() bool { _ = "STUB: not implemented"; return false }
 
-func (v value) JSValue() Value {
-	return v
-}
+func (v value) JSValue() Value { _ = "STUB: not implemented"; return *new(Value) }
 
-func (v value) Length() int {
-	return 0
-}
+func (v value) Length() int { _ = "STUB: not implemented"; return 0 }
 
-func (v value) New(args ...any) Value {
-	return value{}
-}
+func (v value) New(args ...any) Value { _ = "STUB: not implemented"; return *new(Value) }
 
-func (v value) Set(p string, x any) {
-}
+func (v value) Set(p string, x any) { _ = "STUB: not implemented"; return }
 
-func (v value) SetIndex(i int, x any) {
-}
+func (v value) SetIndex(i int, x any) { _ = "STUB: not implemented"; return }
 
-func (v value) String() string {
-	return ""
-}
+func (v value) String() string { _ = "STUB: not implemented"; return "" }
 
-func (v value) Truthy() bool {
-	return false
-}
+func (v value) Truthy() bool { _ = "STUB: not implemented"; return false }
 
-func (v value) Type() Type {
-	panic(errors.New("unsupported instruction").
-		WithTag("required-architecture", "wasm").
-		WithTag("current-architecture", runtime.GOARCH))
-}
+func (v value) Type() Type { _ = "STUB: not implemented"; return *new(Type) }
 
-func (v value) Then(f func(Value)) {
-}
+func (v value) Then(f func(Value)) { _ = "STUB: not implemented"; return }
 
-func (v value) getAttr(k string) string {
-	return ""
-}
+func (v value) getAttr(k string) string { _ = "STUB: not implemented"; return "" }
 
-func (v value) setAttr(k, val string) {
-}
+func (v value) setAttr(k, val string) { _ = "STUB: not implemented"; return }
 
-func (v value) delAttr(k string) {
-}
+func (v value) delAttr(k string) { _ = "STUB: not implemented"; return }
 
-func (v value) firstChild() Value {
-	return value{}
-}
+func (v value) firstChild() Value { _ = "STUB: not implemented"; return *new(Value) }
 
-func (v value) appendChild(c Wrapper) {
-}
+func (v value) appendChild(c Wrapper) { _ = "STUB: not implemented"; return }
 
-func (v value) replaceChild(new, old Wrapper) {
-}
+func (v value) replaceChild(new, old Wrapper) { _ = "STUB: not implemented"; return }
 
-func (v value) removeChild(c Wrapper) {
-}
+func (v value) removeChild(c Wrapper) { _ = "STUB: not implemented"; return }
 
-func (v value) firstElementChild() Value {
-	return value{}
-}
+func (v value) firstElementChild() Value { _ = "STUB: not implemented"; return *new(Value) }
 
 func (v value) addEventListener(event string, fn Func, options map[string]any) {
+	_ = "STUB: not implemented"
+	return
 }
 
-func (v value) removeEventListener(event string, fn Func) {
-}
+func (v value) removeEventListener(event string, fn Func) { _ = "STUB: not implemented"; return }
 
-func (v value) setNodeValue(val string) {
-}
+func (v value) setNodeValue(val string) { _ = "STUB: not implemented"; return }
 
-func (v value) setInnerHTML(val string) {
-}
+func (v value) setInnerHTML(val string) { _ = "STUB: not implemented"; return }
 
-func (v value) setInnerText(val string) {
-}
+func (v value) setInnerText(val string) { _ = "STUB: not implemented"; return }
 
-func null() Value {
-	return value{}
-}
+func null() Value { _ = "STUB: not implemented"; return *new(Value) }
 
-func undefined() Value {
-	return value{}
-}
+func undefined() Value { _ = "STUB: not implemented"; return *new(Value) }
 
-func valueOf(x any) Value {
-	return value{}
-}
+func valueOf(x any) Value { _ = "STUB: not implemented"; return *new(Value) }
 
 type function struct {
 	value
 }
 
-func (f function) Release() {
-}
+func (f function) Release() { _ = "STUB: not implemented"; return }
 
 func funcOf(fn func(this Value, args []Value) any) Func {
-	return function{value: value{}}
+	_ = "STUB: not implemented"
+	return *new(Func)
 }
 
 type browserWindow struct {
 	value
 }
 
-func newBrowserWindow() *browserWindow {
-	return &browserWindow{}
-}
+func newBrowserWindow() *browserWindow { _ = "STUB: not implemented"; return nil }
 
-func (w browserWindow) URL() *url.URL {
-	return &url.URL{}
-}
+func (w browserWindow) URL() *url.URL { _ = "STUB: not implemented"; return nil }
 
-func (w browserWindow) Size() (width, height int) {
-	return 0, 0
-}
+func (w browserWindow) Size() (width, height int) { _ = "STUB: not implemented"; return 0, 0 }
 
-func (w browserWindow) CursorPosition() (x, y int) {
-	return 0, 0
-}
+func (w browserWindow) CursorPosition() (x, y int) { _ = "STUB: not implemented"; return 0, 0 }
 
-func (w browserWindow) setCursorPosition(x, y int) {
-}
+func (w browserWindow) setCursorPosition(x, y int) { _ = "STUB: not implemented"; return }
 
 func (w *browserWindow) GetElementByID(id string) Value {
-	return value{}
+	_ = "STUB: not implemented"
+	return *new(Value)
 }
 
-func (w *browserWindow) ScrollToID(id string) {
-}
+func (w *browserWindow) ScrollToID(id string) { _ = "STUB: not implemented"; return }
 
-func (w *browserWindow) setBody(body UI) {
-}
+func (w *browserWindow) setBody(body UI) { _ = "STUB: not implemented"; return }
 
 func (w *browserWindow) createElement(tag, xmlns string) (Value, error) {
-	return value{}, nil
+	_ = "STUB: not implemented"
+	return *new(Value), nil
 }
 
 func (w *browserWindow) createTextNode(v string) Value {
-	return value{}
+	_ = "STUB: not implemented"
+	return *new(Value)
 }
 
-func (w *browserWindow) addHistory(u *url.URL) {
-}
+func (w *browserWindow) addHistory(u *url.URL) { _ = "STUB: not implemented"; return }
 
-func (w *browserWindow) replaceHistory(u *url.URL) {
-}
+func (w *browserWindow) replaceHistory(u *url.URL) { _ = "STUB: not implemented"; return }
 
-func copyBytesToGo(dst []byte, src Value) int {
-	return 0
-}
+func copyBytesToGo(dst []byte, src Value) int { _ = "STUB: not implemented"; return 0 }
 
-func copyBytesToJS(dst Value, src []byte) int {
-	return 0
-}
+func copyBytesToJS(dst Value, src []byte) int { _ = "STUB: not implemented"; return 0 }

@@ -3,17 +3,9 @@
 
 package app
 
-import (
-	"runtime"
-
-	"github.com/maxence-charriere/go-app/v11/pkg/errors"
-)
-
 func GenerateStaticWebsite(dir string, h *Handler, pages ...string) error {
-	panic(errors.New("unsupported instruction").
-		WithTag("architecture", runtime.GOARCH))
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func wasmExecJS() string {
-	return ""
-}
+func wasmExecJS() string { _ = "STUB: not implemented"; return "" }

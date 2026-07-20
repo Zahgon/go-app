@@ -2,17 +2,10 @@ package app
 
 import (
 	"context"
-	"encoding/json"
 	"net/url"
-	"strings"
 	"time"
-
-	"github.com/google/uuid"
-	"github.com/maxence-charriere/go-app/v11/pkg/errors"
 )
 
-// Context represents a UI element-associated environment enabling interactions
-// with the browser, page navigation, concurrency, and component communication.
 type Context struct {
 	context.Context
 
@@ -38,271 +31,86 @@ type Context struct {
 	notifyComponentEvent func(Context, UI, any)
 }
 
-// Src retrieves the linked UI element of the context.
-func (ctx Context) Src() UI {
-	return ctx.sourceElement
-}
+func (ctx Context) Src() UI { _ = "STUB: not implemented"; return *new(UI) }
 
-// JSSrc fetches the JavaScript representation of the associated UI element.
-func (ctx Context) JSSrc() Value {
-	return ctx.sourceElement.JSValue()
-}
+func (ctx Context) JSSrc() Value { _ = "STUB: not implemented"; return *new(Value) }
 
-// AppUpdateAvailable checks if there's a pending app update.
-func (ctx Context) AppUpdateAvailable() bool {
-	return ctx.appUpdatable
-}
+func (ctx Context) AppUpdateAvailable() bool { _ = "STUB: not implemented"; return false }
 
-// IsAppInstallable verifies if the app is eligible for installation.
-func (ctx Context) IsAppInstallable() bool {
-	if Window().Get("goappIsAppInstallable").Truthy() {
-		return Window().Call("goappIsAppInstallable").Bool()
-	}
-	return false
-}
+func (ctx Context) IsAppInstallable() bool { _ = "STUB: not implemented"; return false }
 
-// IsAppleBrowser reports whether the app is running on an Apple browser.
-func (ctx Context) IsAppleBrowser() bool {
-	if Window().Get("goappIsAppleBrowser").Truthy() {
-		return Window().Call("goappIsAppleBrowser").Bool()
-	}
-	return false
-}
+func (ctx Context) IsAppleBrowser() bool { _ = "STUB: not implemented"; return false }
 
-// ShowAppInstallPrompt initiates the app installation process.
-func (ctx Context) ShowAppInstallPrompt() {
-	if ctx.IsAppInstallable() {
-		Window().Call("goappShowInstallPrompt")
-	}
-}
+func (ctx Context) ShowAppInstallPrompt() { _ = "STUB: not implemented"; return }
 
-// DeviceID fetches a distinct identifier for the app on the present device.
-func (ctx Context) DeviceID() string {
-	var id string
-	if err := ctx.localStorage.Get("/go-app/deviceID", &id); err != nil {
-		panic(errors.New("retrieving device id failed").Wrap(err))
-	}
-	if id != "" {
-		return id
-	}
+func (ctx Context) DeviceID() string { _ = "STUB: not implemented"; return "" }
 
-	id = uuid.NewString()
-	if err := ctx.localStorage.Set("/go-app/deviceID", id); err != nil {
-		panic(errors.New("creating device id failed").Wrap(err))
-	}
-	return id
-}
+func (ctx Context) Page() Page { _ = "STUB: not implemented"; return *new(Page) }
 
-// Page retrieves the current active page.
-func (ctx Context) Page() Page {
-	return ctx.page()
-}
+func (ctx Context) Reload() { _ = "STUB: not implemented"; return }
 
-// Reload refreshes the present page.
-func (ctx Context) Reload() {
-	if IsServer {
-		return
-	}
-	Window().Get("location").Call("reload")
-}
+func (ctx Context) Navigate(rawURL string) { _ = "STUB: not implemented"; return }
 
-// Navigate transitions to the given URL string.
-func (ctx Context) Navigate(rawURL string) {
-	u, err := url.Parse(rawURL)
-	if err != nil {
-		Log(errors.New("navigating to URL failed").
-			WithTag("url", rawURL).
-			Wrap(err))
-		return
-	}
-	ctx.NavigateTo(u)
-}
+func (ctx Context) NavigateTo(u *url.URL) { _ = "STUB: not implemented"; return }
 
-// NavigateTo transitions to the provided URL.
-func (ctx Context) NavigateTo(u *url.URL) {
-	ctx.navigate(u, true)
-}
+func (ctx Context) ResolveStaticResource(v string) string { _ = "STUB: not implemented"; return "" }
 
-// ResolveStaticResource adjusts a given path to point to the correct static
-// resource location.
-func (ctx Context) ResolveStaticResource(v string) string {
-	return ctx.resolveURL(v)
-}
+func (ctx Context) ScrollTo(id string) { _ = "STUB: not implemented"; return }
 
-// ScrollTo adjusts the scrollbar to target an HTML element by its ID.
-func (ctx Context) ScrollTo(id string) {
-	ctx.Defer(func(ctx Context) {
-		Window().ScrollToID(id)
-	})
-}
-
-// LocalStorage accesses the browser's local storage tied to the document
-// origin.
 func (ctx Context) LocalStorage() BrowserStorage {
-	return ctx.localStorage
+	_ = "STUB: not implemented"
+	return *new(BrowserStorage)
 }
 
-// SessionStorage accesses the browser's session storage tied to the
-// document origin.
 func (ctx Context) SessionStorage() BrowserStorage {
-	return ctx.sessionStorage
+	_ = "STUB: not implemented"
+	return *new(BrowserStorage)
 }
 
-// Encrypt enciphers a value using AES encryption.
-func (ctx Context) Encrypt(v any) ([]byte, error) {
-	b, err := json.Marshal(v)
-	if err != nil {
-		return nil, errors.New("encoding value failed").Wrap(err)
-	}
+func (ctx Context) Encrypt(v any) ([]byte, error) { _ = "STUB: not implemented"; return nil, nil }
 
-	b, err = encrypt(ctx.cryptoKey(), b)
-	if err != nil {
-		return nil, errors.New("encrypting value failed").Wrap(err)
-	}
-	return b, nil
-}
+func (ctx Context) Decrypt(crypted []byte, v any) error { _ = "STUB: not implemented"; return nil }
 
-// Decrypt deciphers encrypted data into a given reference value.
-func (ctx Context) Decrypt(crypted []byte, v any) error {
-	b, err := decrypt(ctx.cryptoKey(), crypted)
-	if err != nil {
-		return errors.New("decrypting value failed").Wrap(err)
-	}
+func (ctx Context) cryptoKey() string { _ = "STUB: not implemented"; return "" }
 
-	if err := json.Unmarshal(b, v); err != nil {
-		return errors.New("decoding value failed").Wrap(err)
-	}
-	return nil
-}
-
-func (ctx Context) cryptoKey() string {
-	return strings.ReplaceAll(ctx.DeviceID(), "-", "")
-}
-
-// Notifications accesses the notifications service.
 func (ctx Context) Notifications() NotificationService {
-	return NotificationService{}
+	_ = "STUB: not implemented"
+	return *new(NotificationService)
 }
 
-// Dispatch prompts the execution of a function on the UI goroutine,
-// flagging the enclosing component for an update.
-func (ctx Context) Dispatch(v func(Context)) {
-	ctx.dispatch(func() {
-		if !ctx.sourceElement.Mounted() {
-			return
-		}
+func (ctx Context) Dispatch(v func(Context)) { _ = "STUB: not implemented"; return }
 
-		for c, ok := component(ctx.sourceElement); ok; c, ok = component(c.parent()) {
-			ctx.addComponentUpdate(c, 1)
-		}
+func (ctx Context) Defer(v func(Context)) { _ = "STUB: not implemented"; return }
 
-		if v != nil {
-			v(ctx)
-		}
-	})
-}
+func (ctx Context) Async(v func()) { _ = "STUB: not implemented"; return }
 
-// Defer postpones the function execution on the UI goroutine until the
-// current update cycle completes.
-func (ctx Context) Defer(v func(Context)) {
-	ctx.defere(func() {
-		if !ctx.sourceElement.Mounted() {
-			return
-		}
+func (ctx Context) After(d time.Duration, f func(Context)) { _ = "STUB: not implemented"; return }
 
-		if v != nil {
-			v(ctx)
-		}
-	})
-}
+func (ctx Context) PreventUpdate() { _ = "STUB: not implemented"; return }
 
-// Async initiates a function asynchronously. It enables go-app to monitor
-// goroutines, ensuring they conclude when rendering server-side.
-func (ctx Context) Async(v func()) {
-	ctx.async(v)
-}
+func (ctx Context) Update() { _ = "STUB: not implemented"; return }
 
-// After pauses for a determined span, then triggers a specified function.
-func (ctx Context) After(d time.Duration, f func(Context)) {
-	ctx.async(func() {
-		time.Sleep(d)
-		ctx.Dispatch(f)
-	})
-}
+func (ctx Context) Handle(action string, h ActionHandler) { _ = "STUB: not implemented"; return }
 
-// PreventUpdate halts updates for the enclosing component.
-func (ctx Context) PreventUpdate() {
-	for c, ok := component(ctx.sourceElement); ok; c, ok = component(c.parent()) {
-		ctx.addComponentUpdate(c, -1)
-	}
-}
+func (ctx Context) NewAction(action string, tags ...Tagger) { _ = "STUB: not implemented"; return }
 
-// Update flags the enclosing component for an update.
-func (ctx Context) Update() {
-	ctx.Dispatch(nil)
-}
-
-// Handle designates a handler for a particular action, set to run on the UI
-// goroutine.
-func (ctx Context) Handle(action string, h ActionHandler) {
-	ctx.handleAction(action, ctx.sourceElement, false, h)
-}
-
-// NewAction generates a new action for handling.
-func (ctx Context) NewAction(action string, tags ...Tagger) {
-	ctx.NewActionWithValue(action, nil, tags...)
-
-}
-
-// NewActionWithValue crafts an action with a given value for processing.
 func (ctx Context) NewActionWithValue(action string, v any, tags ...Tagger) {
-	var tagMap Tags
-	for _, tag := range tags {
-		if tagMap == nil {
-			tagMap = make(Tags)
-		}
-
-		for k, v := range tag.Tags() {
-			tagMap[k] = v
-		}
-	}
-
-	ctx.postAction(ctx, Action{
-		Name:  action,
-		Value: v,
-		Tags:  tagMap,
-	})
+	_ = "STUB: not implemented"
+	return
 }
 
-// ObserveState establishes an observer for a state, tracking its changes.
 func (ctx Context) ObserveState(state string, recv any) Observer {
-	return ctx.observeState(ctx, state, recv)
+	_ = "STUB: not implemented"
+	return *new(Observer)
 }
 
-// GetState fetches the value of a particular state.
-func (ctx Context) GetState(state string, recv any) {
-	ctx.getState(ctx, state, recv)
-}
+func (ctx Context) GetState(state string, recv any) { _ = "STUB: not implemented"; return }
 
-// SetState modifies a state with the provided value.
 func (ctx Context) SetState(state string, v any) State {
-	return ctx.setState(ctx, state, v)
+	_ = "STUB: not implemented"
+	return *new(State)
 }
 
-// DelState erases a state, halting all associated observations.
-func (ctx Context) DelState(state string) {
-	ctx.delState(ctx, state)
-}
+func (ctx Context) DelState(state string) { _ = "STUB: not implemented"; return }
 
-// ResizeContent notifies the children of the associated element that implement
-// the Resizer interface about a resize event. It ensures that components can
-// adjust their size and layout in response to changes. This method is typically
-// used when the size of the container changes, requiring child components to
-// update their dimensions accordingly.
-func (ctx Context) ResizeContent() {
-	ctx.Defer(func(ctx Context) {
-		ctx.Dispatch(func(ctx Context) {
-			ctx.notifyComponentEvent(ctx, ctx.Src(), resize{})
-		})
-	})
-}
+func (ctx Context) ResizeContent() { _ = "STUB: not implemented"; return }
