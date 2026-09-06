@@ -1,20 +1,8 @@
 package app
 
-import (
-	"fmt"
-)
+func Text(v any) UI { _ = "STUB: not implemented"; return *new(UI) }
 
-// Text returns a UI element representing plain text, converting the provided
-// value to its string representation.
-func Text(v any) UI {
-	return &text{value: toString(v)}
-}
-
-// Textf returns a UI element representing formatted text. The format and values
-// follow the conventions of fmt.Sprintf.
-func Textf(format string, v ...any) UI {
-	return &text{value: fmt.Sprintf(format, v...)}
-}
+func Textf(format string, v ...any) UI { _ = "STUB: not implemented"; return *new(UI) }
 
 type text struct {
 	jsvalue       Value
@@ -22,19 +10,10 @@ type text struct {
 	value         string
 }
 
-func (t *text) JSValue() Value {
-	return t.jsvalue
-}
+func (t *text) JSValue() Value { _ = "STUB: not implemented"; return *new(Value) }
 
-func (t *text) Mounted() bool {
-	return t.jsvalue != nil
-}
+func (t *text) Mounted() bool { _ = "STUB: not implemented"; return false }
 
-func (t *text) parent() UI {
-	return t.parentElement
-}
+func (t *text) parent() UI { _ = "STUB: not implemented"; return *new(UI) }
 
-func (t *text) setParent(p UI) UI {
-	t.parentElement = p
-	return t
-}
+func (t *text) setParent(p UI) UI { _ = "STUB: not implemented"; return *new(UI) }

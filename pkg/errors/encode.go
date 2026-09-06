@@ -1,7 +1,6 @@
 package errors
 
 import (
-	"encoding/json"
 	"sync/atomic"
 )
 
@@ -13,33 +12,10 @@ func init() {
 	SetInlineEncoder()
 }
 
-// SetEncoder sets the function used to encode errors and their tags.
-//
-// It is intended to be configured once during program startup, before the
-// package is used concurrently. It should not be changed after concurrent use
-// begins.
-func SetEncoder(fn func(any) ([]byte, error)) {
-	if fn == nil {
-		panic("errors: nil encoder")
-	}
+func SetEncoder(fn func(any) ([]byte, error)) { _ = "STUB: not implemented"; return }
 
-	encoder.Store(encoderFunc(fn))
-}
+func SetInlineEncoder() { _ = "STUB: not implemented"; return }
 
-// SetInlineEncoder is a helper function that set the error encoder to
-// json.Marshal.
-func SetInlineEncoder() {
-	SetEncoder(json.Marshal)
-}
+func SetIndentEncoder() { _ = "STUB: not implemented"; return }
 
-// SetIndentEncoder is a helper function that set the error encoder to a
-// function that uses json.MarshalIndent.
-func SetIndentEncoder() {
-	SetEncoder(func(v any) ([]byte, error) {
-		return json.MarshalIndent(v, "", "  ")
-	})
-}
-
-func getEncoder() encoderFunc {
-	return encoder.Load().(encoderFunc)
-}
+func getEncoder() encoderFunc { _ = "STUB: not implemented"; return *new(encoderFunc) }

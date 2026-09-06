@@ -1,7 +1,6 @@
 package ui
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/maxence-charriere/go-app/v11/pkg/app"
@@ -16,51 +15,30 @@ const (
 type ILoader interface {
 	app.UI
 
-	// Sets the ID.
 	ID(v string) ILoader
 
-	// Sets the class. Multiple classes can be defined by successive calls.
 	Class(v string) ILoader
 
-	// Sets the style. Multiple styles can be defined by successive calls.
 	Style(k, v string) ILoader
 
-	// Reports whether the loader is active.
 	Loading(v bool) ILoader
 
-	// Sets the size of the rotating circle in px. Default is 60px.
 	Size(px int) ILoader
 
-	// Sets the color of the rotating head. Default is white.
 	Color(v string) ILoader
 
-	// Sets the time it take to fully rotate. Default is 500ms.
 	Speed(v time.Duration) ILoader
 
-	// Sets the space between the loader and the label in px. Default is 18px.
 	Spacing(px int) ILoader
 
-	// Sets the label. Default is "Loading...".
 	Label(v string) ILoader
 
-	// Sets the error that occured during loading.
 	Err(err error) ILoader
 
-	// Sets the error icon.
 	ErrIcon(v string) ILoader
 }
 
-func Loader() ILoader {
-	return &loader{
-		Isize:    60,
-		Icolor:   "white",
-		Ispeed:   time.Millisecond * 500,
-		Ispacing: 18,
-		Ilabel:   "Loading...",
-		IerrIcon: defaultLoaderErrorIcon,
-	}
-
-}
+func Loader() ILoader { _ = "STUB: not implemented"; return *new(ILoader) }
 
 type loader struct {
 	app.Compo
@@ -78,114 +56,26 @@ type loader struct {
 	IerrIcon string
 }
 
-func (l *loader) ID(v string) ILoader {
-	l.Iid = v
-	return l
-}
+func (l *loader) ID(v string) ILoader { _ = "STUB: not implemented"; return *new(ILoader) }
 
-func (l *loader) Class(v string) ILoader {
-	l.Iclass = app.AppendClass(l.Iclass, v)
-	return l
-}
+func (l *loader) Class(v string) ILoader { _ = "STUB: not implemented"; return *new(ILoader) }
 
-func (l *loader) Style(k, v string) ILoader {
-	if v == "" {
-		return l
-	}
-	l.Istyles = append(l.Istyles, style{
-		key:   k,
-		value: v,
-	})
-	return l
-}
+func (l *loader) Style(k, v string) ILoader { _ = "STUB: not implemented"; return *new(ILoader) }
 
-func (l *loader) Loading(v bool) ILoader {
-	l.Iloading = v
-	return l
-}
+func (l *loader) Loading(v bool) ILoader { _ = "STUB: not implemented"; return *new(ILoader) }
 
-func (l *loader) Size(px int) ILoader {
-	l.Isize = px
-	return l
-}
+func (l *loader) Size(px int) ILoader { _ = "STUB: not implemented"; return *new(ILoader) }
 
-func (l *loader) Color(v string) ILoader {
-	l.Icolor = v
-	return l
-}
+func (l *loader) Color(v string) ILoader { _ = "STUB: not implemented"; return *new(ILoader) }
 
-func (l *loader) Speed(v time.Duration) ILoader {
-	l.Ispeed = v
-	return l
-}
+func (l *loader) Speed(v time.Duration) ILoader { _ = "STUB: not implemented"; return *new(ILoader) }
 
-func (l *loader) Spacing(px int) ILoader {
-	l.Ispacing = px
-	return l
-}
+func (l *loader) Spacing(px int) ILoader { _ = "STUB: not implemented"; return *new(ILoader) }
 
-func (l *loader) Label(v string) ILoader {
-	l.Ilabel = v
-	return l
-}
+func (l *loader) Label(v string) ILoader { _ = "STUB: not implemented"; return *new(ILoader) }
 
-func (l *loader) Err(err error) ILoader {
-	l.Ierr = err
-	return l
-}
+func (l *loader) Err(err error) ILoader { _ = "STUB: not implemented"; return *new(ILoader) }
 
-func (l *loader) ErrIcon(v string) ILoader {
-	l.IerrIcon = v
-	return l
-}
+func (l *loader) ErrIcon(v string) ILoader { _ = "STUB: not implemented"; return *new(ILoader) }
 
-func (l *loader) Render() app.UI {
-	body := app.Aside().
-		ID(l.Iid).
-		Class(l.Iclass).
-		Body(
-			Stack().
-				Style("width", "100%").
-				Style("height", "100%").
-				Center().
-				Middle().
-				Content(
-					app.If(l.Ierr == nil, func() app.UI {
-						return app.Div().
-							Style("width", pxToString(l.Isize-4)).
-							Style("height", pxToString(l.Isize-4)).
-							Style("min-width", pxToString(l.Isize-4)).
-							Style("min-height", pxToString(l.Isize-4)).
-							Style("border", "2px solid currentColor").
-							Style("border-top", "2px solid "+l.Icolor).
-							Style("border-radius", "50%").
-							Style("animation", fmt.Sprintf("goapp-spin-frames %vms linear infinite", l.Ispeed.Milliseconds()))
-					}).Else(func() app.UI {
-						return Icon().
-							Size(l.Isize).
-							Src(l.IerrIcon)
-					}),
-					app.Div().
-						Style("margin-left", pxToString(l.Ispacing)).
-						Body(
-							app.If(l.Ierr == nil, func() app.UI {
-								return app.Div().Text(l.Ilabel)
-							}).Else(func() app.UI {
-								return app.Div().
-									Style("white-space", "pre-wrap").
-									Text(l.Ierr)
-							}),
-						),
-				),
-		)
-
-	for _, s := range l.Istyles {
-		body.Style(s.key, s.value)
-	}
-
-	if l.Ierr == nil && !l.Iloading {
-		body.Style("display", "none")
-	}
-
-	return body
-}
+func (l *loader) Render() app.UI { _ = "STUB: not implemented"; return *new(app.UI) }

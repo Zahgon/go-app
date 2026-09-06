@@ -4,11 +4,7 @@
 package main
 
 import (
-	"fmt"
 	"io"
-	"os"
-	"sort"
-	"strings"
 )
 
 type tag struct {
@@ -28,7 +24,7 @@ const (
 )
 
 var tags = []tag{
-	// A:
+
 	{
 		Name: "A",
 		Doc:  "that creates a hyperlink, allowing navigation to other web pages or resources.",
@@ -101,7 +97,6 @@ var tags = []tag{
 		EventHandlers: withMediaEventHandlers(withGlobalEventHandlers()...),
 	},
 
-	// B:
 	{
 		Name:          "B",
 		Doc:           "that applies bold styling to its content.",
@@ -187,7 +182,6 @@ var tags = []tag{
 		EventHandlers: withGlobalEventHandlers(),
 	},
 
-	// C:
 	{
 		Name: "Canvas",
 		Doc:  "that provides a space where graphics can be rendered dynamically, such as 2D drawings or 3D visualizations.",
@@ -233,7 +227,6 @@ var tags = []tag{
 		EventHandlers: withGlobalEventHandlers(),
 	},
 
-	// D:
 	{
 		Name: "Data",
 		Doc:  "that pairs content with its machine-readable translation or value.",
@@ -305,7 +298,6 @@ var tags = []tag{
 		EventHandlers: withGlobalEventHandlers(),
 	},
 
-	// E:
 	{
 		Name: "Elem",
 		Doc:  "that is customizable.",
@@ -342,7 +334,6 @@ var tags = []tag{
 		EventHandlers: withMediaEventHandlers(withGlobalEventHandlers()...),
 	},
 
-	// F:
 	{
 		Name: "FieldSet",
 		Doc:  "that clusters related input controls and labels within a form.",
@@ -387,7 +378,6 @@ var tags = []tag{
 		EventHandlers: withGlobalEventHandlers(),
 	},
 
-	// H:
 	{
 		Name:          "H1",
 		Doc:           "that defines a level 1 HTML heading, indicating the most important topic or section.",
@@ -449,7 +439,6 @@ var tags = []tag{
 		Attrs: withGlobalAttrs(),
 	},
 
-	// I:
 	{
 		Name:          "I",
 		Doc:           "that defines a part of text in an alternate voice or mood.",
@@ -549,7 +538,6 @@ var tags = []tag{
 		EventHandlers: withGlobalEventHandlers(),
 	},
 
-	// K:
 	{
 		Name:          "Kbd",
 		Doc:           "that represents keyboard input.",
@@ -557,7 +545,6 @@ var tags = []tag{
 		EventHandlers: withGlobalEventHandlers(),
 	},
 
-	// L:
 	{
 		Name: "Label",
 		Doc:  "that represents a label for an input element.",
@@ -601,7 +588,6 @@ var tags = []tag{
 		)...),
 	},
 
-	// M:
 	{
 		Name:          "Main",
 		Doc:           "that specifies the main content of a document.",
@@ -649,7 +635,6 @@ var tags = []tag{
 		EventHandlers: withGlobalEventHandlers(),
 	},
 
-	// N:
 	{
 		Name:          "Nav",
 		Doc:           "that represents navigation links.",
@@ -662,7 +647,6 @@ var tags = []tag{
 		Attrs: withGlobalAttrs(attrsByNames()...),
 	},
 
-	// O:
 	{
 		Name: "Object",
 		Doc:  "that embeds an object within the document.",
@@ -718,7 +702,6 @@ var tags = []tag{
 		EventHandlers: withGlobalEventHandlers(),
 	},
 
-	// P:
 	{
 		Name:          "P",
 		Doc:           "that represents a paragraph.",
@@ -757,7 +740,6 @@ var tags = []tag{
 		EventHandlers: withGlobalEventHandlers(),
 	},
 
-	// Q:
 	{
 		Name: "Q",
 		Doc:  "that represents a short quotation.",
@@ -767,7 +749,6 @@ var tags = []tag{
 		EventHandlers: withGlobalEventHandlers(),
 	},
 
-	// R:
 	{
 		Name:          "Rp",
 		Doc:           "that indicates text for browsers not supporting ruby annotations.",
@@ -787,7 +768,6 @@ var tags = []tag{
 		EventHandlers: withGlobalEventHandlers(),
 	},
 
-	// S:
 	{
 		Name:          "S",
 		Doc:           "that represents text which is no longer correct or relevant.",
@@ -894,7 +874,6 @@ var tags = []tag{
 		EventHandlers: withGlobalEventHandlers(),
 	},
 
-	// T:
 	{
 		Name:          "Table",
 		Doc:           "that represents a table structure.",
@@ -985,7 +964,6 @@ var tags = []tag{
 		EventHandlers: withGlobalEventHandlers(),
 	},
 
-	// U:
 	{
 		Name:          "U",
 		Doc:           "that renders text with an underline, typically indicating misspelled text or proper names in Chinese text.",
@@ -999,7 +977,6 @@ var tags = []tag{
 		EventHandlers: withGlobalEventHandlers(),
 	},
 
-	// V:
 	{
 		Name:          "Var",
 		Doc:           "that displays a name of a variable, typically shown in an italic typeface.",
@@ -1040,7 +1017,7 @@ type attr struct {
 }
 
 var attrs = map[string]attr{
-	// A:
+
 	"abbr": {
 		Name: "Abbr",
 		Type: "string",
@@ -1123,7 +1100,6 @@ var attrs = map[string]attr{
 		Doc:  "Automatically plays audio or video elements once they're ready, enhancing media responsiveness.",
 	},
 
-	// C:
 	"capture": {
 		Name: "Capture",
 		Type: "string",
@@ -1185,7 +1161,6 @@ var attrs = map[string]attr{
 		Doc:  "Controls how cross-origin requests are managed for the element, supporting secure content integration from different origins.",
 	},
 
-	// D:
 	"data": {
 		Name: "Data",
 		Type: "string",
@@ -1242,14 +1217,12 @@ var attrs = map[string]attr{
 		Doc:  "Specifies if an element can be dragged by the user, supporting drag-and-drop operations.",
 	},
 
-	// E:
 	"enctype": {
 		Name: "EncType",
 		Type: "string",
 		Doc:  "Describes how form data should be encoded upon submission, especially vital for forms submitting file uploads.",
 	},
 
-	// F:
 	"fetchpriority": {
 		Name: "FetchPriority",
 		Type: "string",
@@ -1291,7 +1264,6 @@ var attrs = map[string]attr{
 		Doc:  "Specifies where the server's response will be displayed after form submission. Applicable only to 'submit' type inputs.",
 	},
 
-	// H:
 	"headers": {
 		Name: "Headers",
 		Type: "string",
@@ -1329,7 +1301,6 @@ var attrs = map[string]attr{
 		Doc:          "Supplies an HTTP header for the content attribute, often used for refresh rates or setting a default charset.",
 	},
 
-	// I:
 	"id": {
 		Name: "ID",
 		Type: "string",
@@ -1341,14 +1312,12 @@ var attrs = map[string]attr{
 		Doc:  "Marks an image as a server-side image-map.",
 	},
 
-	// K:
 	"kind": {
 		Name: "Kind",
 		Type: "string",
 		Doc:  "Defines the type of text track for media elements.",
 	},
 
-	// L:
 	"label": {
 		Name: "Label",
 		Type: "string",
@@ -1380,7 +1349,6 @@ var attrs = map[string]attr{
 		Doc:  "Sets the value threshold regarded as 'low' in a range context.",
 	},
 
-	// M:
 	"max": {
 		Name: "Max",
 		Type: "any",
@@ -1417,7 +1385,6 @@ var attrs = map[string]attr{
 		Doc:  "Ensures that the video's audio playback is muted.",
 	},
 
-	// N:
 	"name": {
 		Name: "Name",
 		Type: "string",
@@ -1429,7 +1396,6 @@ var attrs = map[string]attr{
 		Doc:  "Indicates that the form should bypass validation upon submission.",
 	},
 
-	// O:
 	"open": {
 		Name: "Open",
 		Type: "bool",
@@ -1441,7 +1407,6 @@ var attrs = map[string]attr{
 		Doc:  "Sets the optimal numeric value for a gauge element.",
 	},
 
-	// P:
 	"pattern": {
 		Name: "Pattern",
 		Type: "string",
@@ -1473,7 +1438,6 @@ var attrs = map[string]attr{
 		Doc:  "Defines the property name of the element.",
 	},
 
-	// R:
 	"readonly": {
 		Name: "ReadOnly",
 		Type: "bool",
@@ -1515,7 +1479,6 @@ var attrs = map[string]attr{
 		Doc:  "Determines how many rows a table cell will span vertically.",
 	},
 
-	// S:
 	"sandbox": {
 		Name: "Sandbox",
 		Type: "string",
@@ -1597,7 +1560,6 @@ var attrs = map[string]attr{
 		Doc:  "Allocates multiple CSS styles to an element. Accepts multiple styling definitions.",
 	},
 
-	// T:
 	"tabindex": {
 		Name: "TabIndex",
 		Type: "int",
@@ -1619,21 +1581,18 @@ var attrs = map[string]attr{
 		Doc:  "Designates the type of the element or its content. Can be called with specific format and values.",
 	},
 
-	// U:
 	"usemap": {
 		Name: "UseMap",
 		Type: "string",
 		Doc:  "Associates the element with a client-side image map. Can be called with the designated format and values.",
 	},
 
-	// V:
 	"value": {
 		Name: "Value",
 		Type: "any",
 		Doc:  "Assigns a value to the element.",
 	},
 
-	// W:
 	"width": {
 		Name: "Width",
 		Type: "int",
@@ -1651,51 +1610,9 @@ var attrs = map[string]attr{
 	},
 }
 
-func attrsByNames(names ...string) []attr {
-	res := make([]attr, 0, len(names))
-	for _, n := range names {
-		attr, ok := attrs[n]
-		if !ok {
-			panic("unknown attr: " + n)
-		}
-		res = append(res, attr)
-	}
+func attrsByNames(names ...string) []attr { _ = "STUB: not implemented"; return nil }
 
-	sort.Slice(res, func(i, j int) bool {
-		return strings.Compare(res[i].Name, res[j].Name) <= 0
-	})
-
-	return res
-}
-
-func withGlobalAttrs(attrs ...attr) []attr {
-	attrs = append(attrs, attrsByNames(
-		"accesskey",
-		"aria-*",
-		"class",
-		"contenteditable",
-		"data-*",
-		"datasets",
-		"dir",
-		"draggable",
-		"hidden",
-		"id",
-		"lang",
-		"role",
-		"spellcheck",
-		"style",
-		"styles",
-		"tabindex",
-		"title",
-		"attribute",
-	)...)
-
-	sort.Slice(attrs, func(i, j int) bool {
-		return strings.Compare(attrs[i].Name, attrs[j].Name) <= 0
-	})
-
-	return attrs
-}
+func withGlobalAttrs(attrs ...attr) []attr { _ = "STUB: not implemented"; return nil }
 
 type eventHandler struct {
 	Name string
@@ -1703,7 +1620,7 @@ type eventHandler struct {
 }
 
 var eventHandlers = map[string]eventHandler{
-	// Window events:
+
 	"onafterprint": {
 		Name: "OnAfterPrint",
 		Doc:  "Executes the given handler after the document has been printed.",
@@ -1765,7 +1682,6 @@ var eventHandlers = map[string]eventHandler{
 		Doc:  "Executes the provided handler once the page has been unloaded or the browser window closes.",
 	},
 
-	// Form events:
 	"onblur": {
 		Name: "OnBlur",
 		Doc:  "Executes the given handler when the element loses focus.",
@@ -1807,7 +1723,6 @@ var eventHandlers = map[string]eventHandler{
 		Doc:  "Executes the given handler when the form undergoes submission.",
 	},
 
-	// Keyboard events:
 	"onkeydown": {
 		Name: "OnKeyDown",
 		Doc:  "Executes the specified handler when a user starts pressing a key.",
@@ -1821,7 +1736,6 @@ var eventHandlers = map[string]eventHandler{
 		Doc:  "Invokes the given handler when a user releases a key.",
 	},
 
-	// Mouse events:
 	"onclick": {
 		Name: "OnClick",
 		Doc:  "Triggers the specified handler upon a mouse click on the element.",
@@ -1863,7 +1777,6 @@ var eventHandlers = map[string]eventHandler{
 		Doc:  "Triggers the specified handler as the mouse wheel scrolls over the element.",
 	},
 
-	// Drag events:
 	"ondrag": {
 		Name: "OnDrag",
 		Doc:  "Executes the handler as an element is being dragged.",
@@ -1897,7 +1810,6 @@ var eventHandlers = map[string]eventHandler{
 		Doc:  "Executes the handler as an element's scrollbar is scrolled.",
 	},
 
-	// Clipboard events:
 	"oncopy": {
 		Name: "OnCopy",
 		Doc:  "Triggers the handler when content of an element is copied by the user.",
@@ -1911,7 +1823,6 @@ var eventHandlers = map[string]eventHandler{
 		Doc:  "Invokes the handler as content is pasted into an element by the user.",
 	},
 
-	// Media events:
 	"onabort": {
 		Name: "OnAbort",
 		Doc:  "Triggers the handler when media loading is aborted.",
@@ -2001,111 +1912,22 @@ var eventHandlers = map[string]eventHandler{
 		Doc:  "Triggers the handler when media pauses, awaiting further buffering.",
 	},
 
-	// Misc events:
 	"ontoggle": {
 		Name: "OnToggle",
 		Doc:  "Executes the handler when the details element is toggled by the user.",
 	},
 }
 
-func eventHandlersByName(names ...string) []eventHandler {
-	res := make([]eventHandler, 0, len(names))
-	for _, n := range names {
-		h, ok := eventHandlers[n]
-		if !ok {
-			panic("unknown event handler: " + n)
-		}
-		res = append(res, h)
-	}
-
-	sort.Slice(res, func(i, j int) bool {
-		return strings.Compare(res[i].Name, res[j].Name) <= 0
-	})
-
-	return res
-}
+func eventHandlersByName(names ...string) []eventHandler { _ = "STUB: not implemented"; return nil }
 
 func withGlobalEventHandlers(handlers ...eventHandler) []eventHandler {
-	handlers = append(handlers, eventHandlersByName(
-		"onblur",
-		"onchange",
-		"oncontextmenu",
-		"onfocus",
-		"oninput",
-		"oninvalid",
-		"onreset",
-		"onsearch",
-		"onselect",
-		"onsubmit",
-
-		"onkeydown",
-		"onkeypress",
-		"onkeyup",
-
-		"onclick",
-		"ondblclick",
-		"onmousedown",
-		"onmouseenter",
-		"onmouseleave",
-		"onmousemove",
-		"onmouseout",
-		"onmouseover",
-		"onmouseup",
-		"onwheel",
-
-		"ondrag",
-		"ondragend",
-		"ondragenter",
-		"ondragleave",
-		"ondragover",
-		"ondragstart",
-		"ondrop",
-		"onscroll",
-
-		"oncopy",
-		"oncut",
-		"onpaste",
-	)...)
-
-	sort.Slice(handlers, func(i, j int) bool {
-		return strings.Compare(handlers[i].Name, handlers[j].Name) <= 0
-	})
-
-	return handlers
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func withMediaEventHandlers(handlers ...eventHandler) []eventHandler {
-	handlers = append(handlers, eventHandlersByName(
-		"onabort",
-		"oncanplay",
-		"oncanplaythrough",
-		"oncuechange",
-		"ondurationchange",
-		"onemptied",
-		"onended",
-		"onerror",
-		"onloadeddata",
-		"onloadedmetadata",
-		"onloadstart",
-		"onpause",
-		"onplay",
-		"onplaying",
-		"onprogress",
-		"onratechange",
-		"onseeked",
-		"onseeking",
-		"onstalled",
-		"onsuspend",
-		"ontimeupdate",
-		"onvolumechange",
-		"onwaiting",
-	)...)
-
-	sort.Slice(handlers, func(i, j int) bool {
-		return strings.Compare(handlers[i].Name, handlers[j].Name) <= 0
-	})
-
-	return handlers
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func main() {
@@ -2113,572 +1935,22 @@ func main() {
 	generateHTMLTestGo()
 }
 
-func generateHTMLGo() {
-	f, err := os.Create("html_gen.go")
-	if err != nil {
-		panic(err)
-	}
-	defer f.Close()
+func generateHTMLGo() { _ = "STUB: not implemented"; return }
 
-	fmt.Fprintln(f, "package app")
-	fmt.Fprintln(f)
-	fmt.Fprintln(f, "// Code generated by go generate; DO NOT EDIT.")
-	fmt.Fprintln(f, `
-import (
-	"strings"
-	"fmt"
-)
-		`)
+func writeInterface(w io.Writer, t tag) { _ = "STUB: not implemented"; return }
 
-	for _, t := range tags {
-		writeInterface(f, t)
+func alternateAttr(a attr) (attr, bool) { _ = "STUB: not implemented"; return *new(attr), false }
 
-		switch t.Name {
-		case "Elem", "ElemSelfClosing":
-			fmt.Fprintf(f, `
-			// Returns an HTML element %s
-			func %s(tag string) HTML%s {
-				e := &html%s{
-					htmlElement: htmlElement{
-						tag: tag,
-						isSelfClosing: %v,
-					},
-				}
-
-				return e
-			}
-			`,
-				t.Doc,
-				t.Name,
-				t.Name,
-				t.Name,
-				t.Type == selfClosing,
-			)
-
-		default:
-			fmt.Fprintf(f, `
-			// Returns an HTML element %s
-			func %s() HTML%s {
-				e := &html%s{
-					htmlElement: htmlElement{
-						tag: "%s",
-						isSelfClosing: %v,
-					},
-				}
-
-				return e
-			}
-			`,
-				t.Doc,
-				t.Name,
-				t.Name,
-				t.Name,
-				strings.ToLower(t.Name),
-				t.Type == selfClosing,
-			)
-		}
-
-		fmt.Fprintln(f)
-		fmt.Fprintln(f)
-		writeStruct(f, t)
-		fmt.Fprintln(f)
-		fmt.Fprintln(f)
-	}
-
-}
-
-func writeInterface(w io.Writer, t tag) {
-	fmt.Fprintf(w, `
-		// The interface that represents a "%s" HTML element.
-		type HTML%s interface {
-			HTML
-		`,
-		strings.ToLower(t.Name),
-		t.Name,
-	)
-
-	switch t.Type {
-	case parent:
-		fmt.Fprintf(w, `
-			// Sets the content of the element.
-			Body(elems ...UI) HTML%s 
-		`, t.Name)
-
-		fmt.Fprintf(w, `
-			// Sets the content of the element with a text node containing the stringified given value.
-			Text(v any) HTML%s
-		`, t.Name)
-
-		fmt.Fprintf(w, `
-			// Sets the content of the element with a text node formatted according to a format specifier.
-			Textf(format string, v ...any) HTML%s
-		`, t.Name)
-
-	case privateParent:
-		fmt.Fprintf(w, `
-			privateBody(elems ...UI) HTML%s 
-		`, t.Name)
-	}
-
-	for _, a := range t.Attrs {
-		fmt.Fprintln(w)
-		fmt.Fprintln(w)
-		fmt.Fprintf(w, "// %s\n", a.Doc)
-		writeAttrFunction(w, a, t, true)
-
-		if alternateAttr, ok := alternateAttr(a); ok {
-			fmt.Fprintln(w)
-			fmt.Fprintln(w)
-			fmt.Fprintf(w, "// %s\n", a.Doc)
-			writeAttrFunction(w, alternateAttr, t, true)
-		}
-	}
-
-	fmt.Fprintln(w)
-
-	fmt.Fprintf(w, `
-		// Invokes the specified handler when the corresponding event is triggered.
-		On(event string, h EventHandler, options ...EventOption) HTML%s 
-	`, t.Name)
-
-	for _, e := range t.EventHandlers {
-		fmt.Fprintln(w)
-		fmt.Fprintln(w)
-
-		fmt.Fprintf(w, "// %s\n", e.Doc)
-		writeEventFunction(w, e, t, true)
-	}
-
-	fmt.Fprintln(w)
-	fmt.Fprintln(w, "}")
-}
-
-func alternateAttr(a attr) (attr, bool) {
-	alternate := a
-	switch a.Type {
-	case "string":
-		alternate.Type = "fmt"
-
-	case "style":
-		alternate.Type = "style|fmt"
-	}
-	return alternate, alternate.Type != a.Type
-}
-
-func writeStruct(w io.Writer, t tag) {
-	fmt.Fprintf(w, `type html%s struct {
-			htmlElement
-		}`, t.Name)
-
-	switch t.Type {
-	case parent:
-		fmt.Fprintf(w, `
-			func (e *html%s) Body(v ...UI) HTML%s {
-				return e.setBody(FilterUIElems(v...)).(*html%s)
-			}
-			`,
-			t.Name,
-			t.Name,
-			t.Name,
-		)
-
-		if t.Name == "Textarea" {
-			fmt.Fprintf(w, `
-			func (e *html%s) Text(v any) HTML%s {
-				e.setAttr("value", v)
-				return e
-			}
-			`,
-				t.Name,
-				t.Name,
-			)
-			fmt.Fprintf(w, `
-			func (e *html%s) Textf(format string, v ...any) HTML%s {
-				e.setAttr("value", fmt.Sprintf(format, v...))
-				return e
-			}
-			`,
-				t.Name,
-				t.Name,
-			)
-		} else {
-			fmt.Fprintf(w, `
-			func (e *html%s) Text(v any) HTML%s {
-				return e.Body(Text(v))
-			}
-			`,
-				t.Name,
-				t.Name,
-			)
-
-			fmt.Fprintf(w, `
-			func (e *html%s) Textf(format string, v ...any) HTML%s {
-				return e.Body(Textf(format, v...))
-			}
-			`,
-				t.Name,
-				t.Name,
-			)
-		}
-
-	case privateParent:
-		fmt.Fprintf(w, `
-			func (e *html%s) privateBody(v ...UI) HTML%s {
-				return e.setBody(FilterUIElems(v...)).(*html%s)
-			}
-			`,
-			t.Name,
-			t.Name,
-			t.Name,
-		)
-	}
-
-	for _, a := range t.Attrs {
-		fmt.Fprintln(w)
-		fmt.Fprintln(w)
-		writeAttrFunction(w, a, t, false)
-
-		if alternateAttr, ok := alternateAttr(a); ok {
-			fmt.Fprintln(w)
-			fmt.Fprintln(w)
-			writeAttrFunction(w, alternateAttr, t, false)
-		}
-	}
-
-	fmt.Fprintln(w)
-
-	fmt.Fprintf(w, `
-		func (e *html%s) On(event string, h EventHandler, options ...EventOption)  HTML%s {
-			e.setEventHandler(event, h, options...)
-			return e
-		}
-		`,
-		t.Name,
-		t.Name,
-	)
-
-	for _, e := range t.EventHandlers {
-		fmt.Fprintln(w)
-		fmt.Fprintln(w)
-
-		writeEventFunction(w, e, t, false)
-	}
-
-	fmt.Fprintln(w)
-
-	fmt.Fprintf(w, `
-	func (e *html%s) setDepth(v uint) UI {
-		e.treeDepth = v
-		return e
-	}
-
-	func (e *html%s) setJSElement(v Value) HTML {
-		e.jsElement = v
-		return e
-	}
-
-	func (e *html%s) setAttrs(v attributes) HTML {
-		e.attributes = v
-		return e
-	}
-
-	func (e *html%s) setEvents(v eventHandlers) HTML {
-		e.eventHandlers = v
-		return e
-	}
-
-	func (e *html%s) setParent(v UI) UI {
-		e.parentElement = v
-		return e
-	}
-
-	func (e *html%s) setBody(v []UI) HTML {
-		e.children = v
-		return e
-	}
-	`,
-		t.Name,
-		t.Name,
-		t.Name,
-		t.Name,
-		t.Name,
-		t.Name,
-	)
-}
+func writeStruct(w io.Writer, t tag) { _ = "STUB: not implemented"; return }
 
 func writeAttrFunction(w io.Writer, a attr, t tag, isInterface bool) {
-	if !isInterface {
-		fmt.Fprintf(w, "func (e *html%s)", t.Name)
-	}
-
-	var attrName string
-	if a.NameOverride != "" {
-		attrName = strings.ToLower(a.NameOverride)
-	} else {
-		attrName = strings.ToLower(a.Name)
-	}
-
-	switch a.Type {
-	case "data|value":
-		fmt.Fprintf(w, `%s(k string, v any) HTML%s`, a.Name, t.Name)
-		if !isInterface {
-			fmt.Fprintf(w, `{
-				e.setAttr("data-"+k, fmt.Sprintf("%s", v))
-				return e
-			}`, "%v")
-		}
-
-	case "data|map":
-		fmt.Fprintf(w, `%s(ds map[string]any) HTML%s`, a.Name, t.Name)
-		if !isInterface {
-			fmt.Fprintf(w, `{
-				for k, v := range ds {
-					e.DataSet(k, v)
-				}
-				return e
-			}`)
-		}
-
-	case "attr|value":
-		fmt.Fprintf(w, `%s(n string, v any) HTML%s`, a.Name, t.Name)
-		if !isInterface {
-			fmt.Fprintf(w, `{
-				e.setAttr(n, v)
-				return e
-			}`)
-		}
-
-	case "aria|value":
-		fmt.Fprintf(w, `%s(k string, v any) HTML%s`, a.Name, t.Name)
-		if !isInterface {
-			fmt.Fprintf(w, `{
-				e.setAttr("aria-"+k, fmt.Sprintf("%s", v))
-				return e
-			}`, "%v")
-		}
-
-	case "style":
-		fmt.Fprintf(w, `%s(k, v string) HTML%s`, a.Name, t.Name)
-		if !isInterface {
-			fmt.Fprintf(w, `{
-				e.setAttr("style", k+":"+v)
-				return e
-			}`)
-		}
-
-	case "style|fmt":
-		fmt.Fprintf(w, `%sf(k, format string, v ...any) HTML%s`, a.Name, t.Name)
-		if !isInterface {
-			fmt.Fprintf(w, `{
-				e.setAttr("style", k+":"+fmt.Sprintf(format, v...))
-				return e
-			}`)
-		}
-
-	case "style|map":
-		fmt.Fprintf(w, `%s(s map[string]string) HTML%s`, a.Name, t.Name)
-		if !isInterface {
-			fmt.Fprintf(w, `{
-				for k, v := range s {
-					e.Style(k, v)
-				}
-				return e
-			}`)
-		}
-
-	case "on/off":
-		fmt.Fprintf(w, `%s(v bool) HTML%s`, a.Name, t.Name)
-		if !isInterface {
-			fmt.Fprintf(w, `{
-				s := "off"
-				if (v) {
-					s = "on"
-				}
-	
-				e.setAttr("%s", s)
-				return e
-			}`, attrName)
-		}
-
-	case "bool|force":
-		fmt.Fprintf(w, `%s(v bool) HTML%s`, a.Name, t.Name)
-		if !isInterface {
-			fmt.Fprintf(w, `{
-				s := "false"
-				if (v) {
-					s = "true"
-				}
-	
-				e.setAttr("%s", s)
-				return e
-			}`, attrName)
-		}
-
-	case "string|class":
-		fmt.Fprintf(w, `%s(v ...string) HTML%s`, a.Name, t.Name)
-		if !isInterface {
-			fmt.Fprintf(w, `{
-				e.setAttr("%s", strings.Join(v, " "))
-				return e
-			}`, attrName)
-		}
-
-	case "xmlns":
-		fmt.Fprintf(w, `%s(v string) HTML%s`, a.Name, t.Name)
-		if !isInterface {
-			fmt.Fprintln(w, `{
-				e.xmlns = v
-				return e
-			}`)
-		}
-
-	case "fmt":
-		fmt.Fprintf(w, `%sf(format string, v ...any) HTML%s`, a.Name, t.Name)
-		if !isInterface {
-			fmt.Fprintf(w, `{
-				e.setAttr("%s", fmt.Sprintf(format, v...))
-				return e
-			}`, attrName)
-		}
-
-	default:
-		fmt.Fprintf(w, `%s(v %s) HTML%s`, a.Name, a.Type, t.Name)
-		if !isInterface {
-			fmt.Fprintf(w, `{
-				e.setAttr("%s", v)
-				return e
-			}`, attrName)
-		}
-	}
-
+	_ = "STUB: not implemented"
+	return
 }
 
 func writeEventFunction(w io.Writer, e eventHandler, t tag, isInterface bool) {
-	if !isInterface {
-		fmt.Fprintf(w, `func (e *html%s)`, t.Name)
-	}
-
-	fmt.Fprintf(w, `%s (h EventHandler, options ...EventOption) HTML%s`, e.Name, t.Name)
-	if !isInterface {
-		fmt.Fprintf(w, `{
-			return e.On("%s", h, options...)
-		}`, strings.TrimPrefix(strings.ToLower(e.Name), "on"))
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
-func generateHTMLTestGo() {
-	f, err := os.Create("html_gen_test.go")
-	if err != nil {
-		panic(err)
-	}
-	defer f.Close()
-
-	fmt.Fprintln(f, "package app")
-	fmt.Fprintln(f)
-	fmt.Fprintln(f, "// Code generated by go generate; DO NOT EDIT.")
-	fmt.Fprintln(f, `
-import (
-	"testing"
-)
-		`)
-
-	for _, t := range tags {
-		fmt.Fprintln(f)
-		fmt.Fprintf(f, `func Test%s(t *testing.T) {`, t.Name)
-		fmt.Fprintln(f)
-
-		switch t.Name {
-		case "Elem", "ElemSelfClosing":
-			fmt.Fprintf(f, `elem := %s("div")`, t.Name)
-
-		default:
-			fmt.Fprintf(f, `elem := %s()`, t.Name)
-		}
-
-		fmt.Fprintln(f)
-
-		fmt.Fprintln(f, `elem.setDepth(1)`)
-		fmt.Fprintln(f, `elem.setJSElement(nil)`)
-		fmt.Fprintln(f, `elem.setAttrs(nil)`)
-		fmt.Fprintln(f, `elem.setEvents(nil)`)
-		fmt.Fprintln(f, `elem.setParent(nil)`)
-		fmt.Fprintln(f, `elem.setBody(nil)`)
-
-		generateTestFunc := func(a attr) {
-			switch a.Type {
-			case "data|value", "aria|value", "attr|value":
-				fmt.Fprintf(f, `elem.%s("foo", "bar")`, a.Name)
-
-			case "data|map":
-				fmt.Fprintf(f, `elem.%s(map[string]any{"foo": "bar"})`, a.Name)
-
-			case "style":
-				fmt.Fprintf(f, `elem.%s("margin", "42px")`, a.Name)
-
-			case "style|fmt":
-				fmt.Fprintf(f, `elem.%sf("margin", "%%vpx", 42)`, a.Name)
-
-			case "style|map":
-				fmt.Fprintf(f, `elem.%s(map[string]string{"color": "pink"})`, a.Name)
-
-			case "bool", "bool|force", "on/off":
-				fmt.Fprintf(f, `elem.%s(true)`, a.Name)
-				fmt.Fprintln(f)
-				fmt.Fprintf(f, `elem.%s(false)`, a.Name)
-
-			case "int":
-				fmt.Fprintf(f, `elem.%s(42)`, a.Name)
-
-			case "string":
-				fmt.Fprintf(f, `elem.%s("foo")`, a.Name)
-
-			case "fmt":
-				fmt.Fprintf(f, `elem.%sf("hello %%v", 42)`, a.Name)
-
-			case "url":
-				fmt.Fprintf(f, `elem.%s(http://foo.com")`, a.Name)
-
-			case "string|class":
-				fmt.Fprintf(f, `elem.%s("foo bar")`, a.Name)
-
-			case "xmlns":
-				fmt.Fprintf(f, `elem.%s("http://www.w3.org/2000/svg")`, a.Name)
-
-			default:
-				fmt.Fprintf(f, `elem.%s(42)`, a.Name)
-			}
-
-			fmt.Fprintln(f)
-		}
-
-		for _, a := range t.Attrs {
-			if astring := a; astring.Type == "fmt" {
-				astring.Type = "string"
-				generateTestFunc(astring)
-			}
-			generateTestFunc(a)
-		}
-
-		fmt.Fprint(f, `
-				h := func(ctx Context, e Event) {}
-			`)
-		fmt.Fprintf(f, `elem.On("click", h)`)
-		fmt.Fprintln(f)
-
-		for _, e := range t.EventHandlers {
-			fmt.Fprintf(f, `elem.%s(h)`, e.Name)
-			fmt.Fprintln(f)
-		}
-
-		switch t.Type {
-		case parent:
-			fmt.Fprintln(f, `elem.Text("hello")`)
-			fmt.Fprintln(f, `elem.Textf("hello %s", "Maxence")`)
-
-		case privateParent:
-			fmt.Fprintln(f, `elem.privateBody(Text("hello"))`)
-		}
-
-		fmt.Fprintln(f, "}")
-	}
-}
+func generateHTMLTestGo() { _ = "STUB: not implemented"; return }

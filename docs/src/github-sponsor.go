@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/maxence-charriere/go-app/v11/pkg/app"
-	"github.com/maxence-charriere/go-app/v11/pkg/ui"
 )
 
 type githubSponsor struct {
@@ -11,42 +10,8 @@ type githubSponsor struct {
 	Iclass string
 }
 
-func newGithubSponsor() *githubSponsor {
-	return &githubSponsor{}
-}
+func newGithubSponsor() *githubSponsor { _ = "STUB: not implemented"; return nil }
 
-func (s *githubSponsor) Class(v string) *githubSponsor {
-	s.Iclass = app.AppendClass(s.Iclass, v)
-	return s
-}
+func (s *githubSponsor) Class(v string) *githubSponsor { _ = "STUB: not implemented"; return nil }
 
-func (s *githubSponsor) Render() app.UI {
-	return ui.Stack().
-		Class(s.Iclass).
-		Center().
-		Middle().
-		Content(
-			app.Aside().
-				Class("magnify").
-				Class("text-center").
-				Body(
-					app.A().
-						Class("default").
-						Href(githubSponsorURL).
-						Body(
-							ui.Icon().
-								Class("center").
-								Class("icon-top").
-								Size(72).
-								Src(githubSVG),
-							app.Header().
-								Class("h3").
-								Class("default").
-								Text("Support on GitHub"),
-							app.P().
-								Class("subtext").
-								Text("Help with go-app development by sponsoring it on GitHub."),
-						),
-				),
-		)
-}
+func (s *githubSponsor) Render() app.UI { _ = "STUB: not implemented"; return *new(app.UI) }

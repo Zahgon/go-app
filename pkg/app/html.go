@@ -1,21 +1,12 @@
 package app
 
-// HTML provides an interface for representing HTML elements within the
-// application.
 type HTML interface {
 	UI
 
-	// Tag retrieves the name of the HTML tag that the element represents.
 	Tag() string
 
-	// XMLNamespace fetches the XML namespace associated with the HTML element.
-	// This is relevant for elements like SVG which might have a different
-	// namespace.
 	XMLNamespace() string
 
-	// SelfClosing determines whether the HTML element is self-closing.
-	// For elements like <img> or <br> which don't have closing tags, this
-	// method returns true. Otherwise, it returns false.
 	SelfClosing() bool
 
 	depth() uint
@@ -42,56 +33,29 @@ type htmlElement struct {
 	children      []UI
 }
 
-func (e *htmlElement) JSValue() Value {
-	return e.jsElement
-}
+func (e *htmlElement) JSValue() Value { _ = "STUB: not implemented"; return *new(Value) }
 
-func (e *htmlElement) Mounted() bool {
-	return e.jsElement != nil
-}
+func (e *htmlElement) Mounted() bool { _ = "STUB: not implemented"; return false }
 
-func (e *htmlElement) Tag() string {
-	return e.tag
-}
+func (e *htmlElement) Tag() string { _ = "STUB: not implemented"; return "" }
 
-func (e *htmlElement) XMLNamespace() string {
-	return e.xmlns
-}
+func (e *htmlElement) XMLNamespace() string { _ = "STUB: not implemented"; return "" }
 
-func (e *htmlElement) SelfClosing() bool {
-	return e.isSelfClosing
-}
+func (e *htmlElement) SelfClosing() bool { _ = "STUB: not implemented"; return false }
 
-func (e *htmlElement) depth() uint {
-	return e.treeDepth
-}
+func (e *htmlElement) depth() uint { _ = "STUB: not implemented"; return 0 }
 
-func (e *htmlElement) attrs() attributes {
-	return e.attributes
-}
+func (e *htmlElement) attrs() attributes { _ = "STUB: not implemented"; return *new(attributes) }
 
-func (e *htmlElement) setAttr(name string, value any) {
-	if e.attributes == nil {
-		e.attributes = make(attributes)
-	}
-	e.attributes.Set(name, value)
-}
+func (e *htmlElement) setAttr(name string, value any) { _ = "STUB: not implemented"; return }
 
-func (e *htmlElement) events() eventHandlers {
-	return e.eventHandlers
-}
+func (e *htmlElement) events() eventHandlers { _ = "STUB: not implemented"; return *new(eventHandlers) }
 
 func (e *htmlElement) setEventHandler(event string, h EventHandler, options ...EventOption) {
-	if e.eventHandlers == nil {
-		e.eventHandlers = make(eventHandlers)
-	}
-	e.eventHandlers.Set(event, h, options...)
+	_ = "STUB: not implemented"
+	return
 }
 
-func (e *htmlElement) parent() UI {
-	return e.parentElement
-}
+func (e *htmlElement) parent() UI { _ = "STUB: not implemented"; return *new(UI) }
 
-func (e *htmlElement) body() []UI {
-	return e.children
-}
+func (e *htmlElement) body() []UI { _ = "STUB: not implemented"; return nil }
